@@ -1,0 +1,31 @@
+def binary_search(arr, target):
+    low = 0
+    high = len(arr) - 1
+
+    while low <= high:
+        mid = (low + high) // 2
+        mid_val = arr[mid]
+
+        if mid_val == target:
+            return mid  # Found the target at index mid
+        elif mid_val < target:
+            low = mid + 1  # Target is in the right half
+        else:
+            high = mid - 1  # Target is in the left half
+
+    return -1  # Target not found in the array
+
+# Get user input for the array
+arr_str = input("Enter sorted array elements separated by spaces: ")
+arr = list(map(int, arr_str.split()))
+
+# Get user input for the target value
+target = int(input("Enter the target value to search for: "))
+
+# Call the binary_search function
+result_index = binary_search(arr, target)
+
+if result_index != -1:
+    print(f"Target {target} found at index {result_index}.")
+else:
+    print(f"Target {target} not found in the array.")
