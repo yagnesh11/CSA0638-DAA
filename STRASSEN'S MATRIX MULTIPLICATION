@@ -1,0 +1,37 @@
+import numpy as np
+
+def split_matrix(matrix):
+    row, col = matrix.shape
+    row2, col2 = row // 2, col // 2
+    return matrix[:row2, :col2], matrix[:row2, col2:], matrix[row2:, :col2], matrix[row2:, col2:]
+
+def strassen(matrix1, matrix2):
+    if len(matrix1) == 1:
+        return matrix1 * matrix2
+
+    a, b, c, d = split_matrix(matrix1)
+    e, f, g, h = split_matrix(matrix2)
+
+    p1 = strassen(a, f - h)
+    p2 = strassen(a + b, h)
+    p3 = strassen(c + d, e)
+    p4 = strassen(d, g - e)
+    p5 = strassen(a + d, e + h)
+    p6 = strassen(b - d, g + h)
+    p7 = strassen(a - c, e + f)
+
+    result_top_left = p5 + p4 - p2 + p6
+    result_top_right = p1 + p2
+    result_bottom_left = p3 + p4
+    result_bottom_right = p1 + p5 - p3 - p7
+
+    top_half = np.hstack((result_top_left, result_top_right))
+    bottom_half = np.hstack((result_bottom_left, result_bottom_right))
+    return np.vstack((top_half, bottom_half))
+
+# Example usage:
+matrix1 = np.array([[1, 2, 3, 4], [5, 6, 7, 8], [9, 10, 11, 12], [13, 14, 15, 16]])
+matrix2 = np.array([[17, 18, 19, 20], [21, 22, 23, 24], [25, 26, 27, 28], [29, 30, 31, 32]])
+
+result = strassen(matrix1, matrix2)
+print(result)
