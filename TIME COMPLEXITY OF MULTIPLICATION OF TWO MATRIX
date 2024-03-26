@@ -1,0 +1,31 @@
+import time
+import random
+
+def multiply_matrices(matrix1, matrix2):
+    n = len(matrix1)
+    result = [[0 for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        for j in range(n):
+            for k in range(n):
+                result[i][j] += matrix1[i][k] * matrix2[k][j]
+
+    return result
+
+# Generate random matrices
+n = int(input("Enter the size of matrices (n x n): "))
+matrix1 = [[random.randint(1, 10) for _ in range(n)] for _ in range(n)]
+matrix2 = [[random.randint(1, 10) for _ in range(n)] for _ in range(n)]
+
+# Calculate time complexity
+start_time = time.time()
+result_matrix = multiply_matrices(matrix1, matrix2)
+end_time = time.time()
+execution_time = end_time - start_time
+
+print("Resultant Matrix:")
+for row in result_matrix:
+    print(row)
+
+print(f"\nTime Complexity: O(n^3), where n = {n}")
+print(f"Execution Time: {execution_time} seconds")
