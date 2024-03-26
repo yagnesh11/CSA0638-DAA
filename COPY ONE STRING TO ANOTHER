@@ -1,0 +1,18 @@
+def copy_string(source, destination, index=0):
+    # Base case: If index reaches the length of source string, copying is complete
+    if index == len(source):
+        return destination
+    else:
+        # Copy current character from source to destination
+        destination += source[index]
+        # Recursive call to copy the rest of the string
+        return copy_string(source, destination, index + 1)
+
+# Get user input for the source string
+source_str = input("Enter the source string: ")
+
+# Call the copy_string function to copy the source string to a new string
+copied_str = copy_string(source_str, "")
+
+print("Source String:", source_str)
+print("Copied String:", copied_str)
