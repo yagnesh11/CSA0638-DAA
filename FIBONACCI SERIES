@@ -1,0 +1,17 @@
+def fibonacci(n):
+    if n <= 1:
+        return n
+    else:
+        return fibonacci(n-1) + fibonacci(n-2)
+
+def print_fibonacci_series(num_terms):
+    if num_terms <= 0:
+        print("Please enter a positive integer.")
+    else:
+        print("Fibonacci Series:")
+        for i in range(num_terms):
+            print(fibonacci(i), end=" ")
+
+# Example usage:
+terms = int(input("Enter the number of terms for Fibonacci series: "))
+print_fibonacci_series(terms)
