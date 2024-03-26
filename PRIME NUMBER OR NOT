@@ -1,0 +1,18 @@
+def is_prime(n, divisor=2):
+    # Base cases
+    if n <= 2:
+        return n == 2
+    if n % divisor == 0:
+        return False
+    if divisor * divisor > n:
+        return True
+    
+    # Recursive case
+    return is_prime(n, divisor + 1)
+
+# Test the function
+num = int(input("Enter a number: "))
+if is_prime(num):
+    print(f"{num} is a prime number.")
+else:
+    print(f"{num} is not a prime number.")
