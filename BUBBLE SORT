@@ -1,0 +1,30 @@
+def bubble_sort(arr):
+    n = len(arr)
+
+    for i in range(n):
+        # Flag to check if any swaps are made in this pass
+        swapped = False
+
+        # Last i elements are already in place, so no need to check them
+        for j in range(0, n-i-1):
+            # Swap if the element found is greater than the next element
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+                swapped = True
+
+        # If no swaps are made in this pass, array is already sorted
+        if not swapped:
+            break
+
+    return arr
+
+# Get user input for array elements
+n = int(input("Enter the number of elements: "))
+arr = []
+for i in range(n):
+    element = int(input(f"Enter element {i+1}: "))
+    arr.append(element)
+
+# Call bubble_sort function
+sorted_arr = bubble_sort(arr)
+print("Sorted array:", sorted_arr)
