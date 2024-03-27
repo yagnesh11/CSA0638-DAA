@@ -1,0 +1,22 @@
+def is_prime(num, div=2):
+    # Base cases
+    if num <= 2:
+        return num == 2
+    if num % div == 0:
+        return False
+    if div * div > num:
+        return True
+
+    # Recursive case
+    return is_prime(num, div + 1)
+
+def generate_primes(n, current=2):
+    if current <= n:
+        if is_prime(current):
+            print(current, end=' ')
+        generate_primes(n, current + 1)
+
+# Example usage
+limit = 100
+print(f"All prime numbers up to {limit}:")
+generate_primes(limit)
