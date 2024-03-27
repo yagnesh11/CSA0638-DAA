@@ -1,0 +1,24 @@
+def knapsack_greedy(values, weights, capacity):
+    n = len(values)
+    ratio_items = [(values[i] / weights[i], values[i], weights[i]) for i in range(n)]
+    ratio_items.sort(reverse=True)  # Sort items by value-to-weight ratio in descending order
+
+    total_value = 0
+    total_weight = 0
+    knapsack = []
+
+    for ratio, value, weight in ratio_items:
+        if total_weight + weight <= capacity:
+            knapsack.append((value, weight))
+            total_value += value
+            total_weight += weight
+
+    return total_value, knapsack
+
+# Example usage
+values = [60, 100, 120]
+weights = [10, 20, 30]
+capacity = 50
+max_value, items_in_knapsack = knapsack_greedy(values, weights, capacity)
+print("Maximum value:", max_value)
+print("Items in knapsack:", items_in_knapsack)
