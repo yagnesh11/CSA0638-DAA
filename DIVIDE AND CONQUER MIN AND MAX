@@ -1,0 +1,23 @@
+def divide_and_conquer_max_min(arr, l, r):
+    if l == r:
+        return (arr[l], arr[l])
+    elif r == l + 1:
+        if arr[l] > arr[r]:
+            return (arr[l], arr[r])
+        else:
+            return (arr[r], arr[l])
+    else:
+        mid = (l + r) // 2
+        max1, min1 = divide_and_conquer_max_min(arr, l, mid)
+        max2, min2 = divide_and_conquer_max_min(arr, mid + 1, r)
+
+        max_val = max(max1, max2)
+        min_val = min(min1, min2)
+
+        return (max_val, min_val)
+
+# Example usage:
+arr = [5, 3, 7, 1, 9, 2]
+max_val, min_val = divide_and_conquer_max_min(arr, 0, len(arr) - 1)
+print("Maximum value:", max_val)
+print("Minimum value:", min_val)
