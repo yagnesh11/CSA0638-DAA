@@ -1,0 +1,20 @@
+def reverse_number(num):
+    if num < 10:
+        return num
+    else:
+        # Get the last digit of the number
+        last_digit = num % 10
+        # Recursive call to reverse the remaining digits
+        remaining_num = num // 10
+        reversed_remaining = reverse_number(remaining_num)
+        # Concatenate the last digit to the reversed remaining digits
+        reversed_num = int(str(last_digit) + str(reversed_remaining))
+        return reversed_num
+
+def main():
+    num = int(input("Enter a number to reverse: "))
+    reversed_num = reverse_number(num)
+    print(f"The reverse of {num} is {reversed_num}")
+
+if __name__ == "__main__":
+    main()
