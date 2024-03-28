@@ -1,0 +1,44 @@
+import sys
+
+def tsp_dp(graph, n, start):
+    # Initialize the DP table with maximum values
+    dp = [[-1] * (1 << n) for _ in range(n)]
+    
+    # Base case: when there is only one node
+    for i in range(n):
+        if i != start:
+            dp[i][1 << start | 1 << i] = graph[start][i]
+    
+    # Recursive DP function to calculate the shortest path
+    def dfs(node, mask):
+        if dp[node][mask] != -1:
+            return dp[node][mask]
+        
+        min_cost = sys.maxsize
+        for next_node in range(n):
+            if mask & (1 << next_node) == 0:
+                new_mask = mask | (1 << next_node)
+                cost = graph[node][next_node] + dfs(next_node, new_mask)
+                min_cost = min(min_cost, cost)
+        
+        dp[node][mask] = min_cost
+        return min_cost
+    
+    # Start the recursive DFS traversal
+    return dfs(start, 1 << start)
+
+def main():
+    n = int(input("Enter the number of cities: "))
+    graph = []
+    print("Enter the adjacency matrix:")
+    for _ in range(n):
+        row = list(map(int, input().split()))
+        graph.append(row)
+    
+    start_city = int(input("Enter the starting city (0 to n-1): "))
+    
+    min_cost = tsp_dp(graph, n, start_city)
+    print(f"Minimum cost of the Travelling Salesman Problem: {min_cost}")
+
+if __name__ == "__main__":
+    main()
