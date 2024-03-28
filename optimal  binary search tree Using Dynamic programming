@@ -1,1 +1,39 @@
+import sys
+
+def optimal_bst(keys, freq):
+    n = len(keys)
+    dp = [[0 for _ in range(n)] for _ in range(n)]
+    cost = [[0 for _ in range(n)] for _ in range(n)]
+
+    for i in range(n):
+        dp[i][i] = freq[i]
+        cost[i][i] = freq[i]
+
+    for chain_length in range(2, n + 1):
+        for i in range(n - chain_length + 1):
+            j = i + chain_length - 1
+            dp[i][j] = sys.maxsize
+            cost[i][j] = cost[i][j - 1] + freq[j]
+            for k in range(i, j + 1):
+                left = dp[i][k - 1] if k > i else 0
+                right = dp[k + 1][j] if k < j else 0
+                temp = left + right + cost[i][j]
+                if temp < dp[i][j]:
+                    dp[i][j] = temp
+
+    return dp[0][n - 1]
+
+def main():
+    keys = list(map(int, input("Enter keys separated by spaces: ").split()))
+    freq = list(map(int, input("Enter frequencies separated by spaces: ").split()))
+
+    if len(keys) != len(freq):
+        print("Error: Number of keys and frequencies should be equal.")
+        return
+
+    min_cost = optimal_bst(keys, freq)
+    print(f"Minimum cost of optimal BST: {min_cost}")
+
+if __name__ == "__main__":
+    main()
 
